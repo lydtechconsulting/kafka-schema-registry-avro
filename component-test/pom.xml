@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>dev.lydtech</groupId>
+	<artifactId>component-test</artifactId>
+	<version>1.0.0</version>
+	<name>component-test</name>
+	<description>Component tests for the Schema Registry demo using the component-test-framework</description>
+	<properties>
+		<java.version>11</java.version>
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+
+		<!-- Allows control of whether to leave TestContainers up after component test run -->
+		<containers.stayup>false</containers.stayup>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>demo.kafka</groupId>
+			<artifactId>avro-schema</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>dev.lydtech</groupId>
+			<artifactId>component-test-framework</artifactId>
+			<version>1.7.0-SNAPSHOT</version>
+
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-avro</artifactId>
+			<version>2.13.3</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>component</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.22.2</version>
+						<configuration>
+							<environmentVariables>
+								<TESTCONTAINERS_RYUK_DISABLED>${containers.stayup}</TESTCONTAINERS_RYUK_DISABLED>
+							</environmentVariables>
+							<systemPropertyVariables>
+								<service.name>schema-registry-demo-service</service.name>
+								<service.instance.count>1</service.instance.count>
+								<service.container.logging.enabled>false</service.container.logging.enabled>
+								<kafka.enabled>true</kafka.enabled>
+								<kafka.container.logging.enabled>false</kafka.container.logging.enabled>
+								<kafkaschemaregistry.enabled>true</kafkaschemaregistry.enabled>
+								<kafkaschemaregistry.container.logging.enabled>false</kafkaschemaregistry.container.logging.enabled>
+							</systemPropertyVariables>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

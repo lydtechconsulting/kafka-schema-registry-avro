@@ -9,7 +9,7 @@ import java.util.UUID;
 import demo.kafka.event.PaymentSent;
 import demo.kafka.event.SendPayment;
 import dev.lydtech.component.framework.client.kafka.KafkaAvroClient;
-import dev.lydtech.component.framework.client.kafka.SchemaRegistryClient;
+import dev.lydtech.component.framework.client.kafka.KafkaSchemaRegistryClient;
 import dev.lydtech.component.framework.extension.TestContainersSetupExtension;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
@@ -29,6 +29,8 @@ import static org.hamcrest.Matchers.notNullValue;
 public class PaymentEndToEndComponentTest {
 
     private static final String GROUP_ID = "PaymentEndToEndComponentTest";
+    private final static String SEND_PAYMENT_TOPIC = "send-payment";
+    private final static String PAYMENT_SENT_TOPIC = "payment-sent";
 
     private Consumer consumer;
 
@@ -37,14 +39,14 @@ public class PaymentEndToEndComponentTest {
     @BeforeAll
     public static void beforeAll() throws Exception {
         // Register the message schemas with the Schema Registry.
-        SchemaRegistryClient.getInstance().resetSchemaRegistry();
-        SchemaRegistryClient.getInstance().registerSchema(SendPayment.class, SendPayment.getClassSchema().toString());
-        SchemaRegistryClient.getInstance().registerSchema(PaymentSent.class, PaymentSent.getClassSchema().toString());
+        KafkaSchemaRegistryClient.getInstance().resetSchemaRegistry();
+        KafkaSchemaRegistryClient.getInstance().registerSchema(SEND_PAYMENT_TOPIC, SendPayment.getClassSchema().toString());
+        KafkaSchemaRegistryClient.getInstance().registerSchema(PAYMENT_SENT_TOPIC, PaymentSent.getClassSchema().toString());
     }
 
     @BeforeEach
     public void setup() {
-        consumer = KafkaAvroClient.getInstance().createConsumer(GROUP_ID, "payment-sent");
+        consumer = KafkaAvroClient.getInstance().createConsumer(GROUP_ID, PAYMENT_SENT_TOPIC);
 
         // Clear the topic.
         consumer.poll(Duration.ofSeconds(1));
@@ -64,7 +66,7 @@ public class PaymentEndToEndComponentTest {
         for (int i=0; i<totalMessages; i++) {
             String key = UUID.randomUUID().toString();
             String payload = UUID.randomUUID().toString();
-            KafkaAvroClient.getInstance().sendMessage("send-payment", key, buildSendPayment(payload));
+            KafkaAvroClient.getInstance().sendMessage(SEND_PAYMENT_TOPIC, key, buildSendPayment(payload));
         }
         List<ConsumerRecord<String, PaymentSent>> outboundEvents = KafkaAvroClient.getInstance().consumeAndAssert("testFlow", consumer, totalMessages, 3);
         outboundEvents.stream().forEach(outboundEvent -> {

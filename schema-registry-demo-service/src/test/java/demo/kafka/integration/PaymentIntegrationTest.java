@@ -51,7 +51,8 @@ import static org.hamcrest.Matchers.equalTo;
 @EmbeddedKafka(controlledShutdown = true, topics = { "payment-sent" })
 public class PaymentIntegrationTest {
 
-    final static String SEND_PAYMENT_TOPIC = "send-payment";
+    private final static String SEND_PAYMENT_TOPIC = "send-payment";
+    private final static String PAYMENT_SENT_TOPIC = "payment-sent";
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -102,15 +103,15 @@ public class PaymentIntegrationTest {
         WireMock.resetAllScenarios();
         WireMock.resetToDefault();
 
-        registerSchema(1, "send-payment", SendPayment.getClassSchema().toString());
-        registerSchema(2, "payment-sent", PaymentSent.getClassSchema().toString());
+        registerSchema(1, SEND_PAYMENT_TOPIC, SendPayment.getClassSchema().toString());
+        registerSchema(2, PAYMENT_SENT_TOPIC, PaymentSent.getClassSchema().toString());
     }
 
     /**
      * Register the schema derived from the avro generated class.
      *
      * @param schemaId the schema id to use
-     * @param subject the subject of the schema
+     * @param subject the subject (topic name) of the schema
      * @param schema the schema JSON string
      */
     private void registerSchema(int schemaId, String subject, String schema) throws Exception {

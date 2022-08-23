@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>dev.lydtech</groupId>
 			<artifactId>component-test-framework</artifactId>
-			<version>1.7.0-SNAPSHOT</version>
+			<version>1.7.0</version>
 
 		</dependency>
 		<dependency>
@@ -55,8 +55,10 @@
 								<service.container.logging.enabled>false</service.container.logging.enabled>
 								<kafka.enabled>true</kafka.enabled>
 								<kafka.container.logging.enabled>false</kafka.container.logging.enabled>
-								<kafkaschemaregistry.enabled>true</kafkaschemaregistry.enabled>
-								<kafkaschemaregistry.container.logging.enabled>false</kafkaschemaregistry.container.logging.enabled>
+								<kafka.schema.registry.enabled>true</kafka.schema.registry.enabled>
+								<kafka.schema.registry.confluent.image.tag>6.2.4</kafka.schema.registry.confluent.image.tag>
+								<kafka.schema.registry.port>8081</kafka.schema.registry.port>
+								<kafka.schema.registry.container.logging.enabled>false</kafka.schema.registry.container.logging.enabled>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>

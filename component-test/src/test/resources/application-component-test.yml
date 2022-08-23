@@ -1,4 +1,4 @@
 ---
 kafka:
     bootstrap-servers: kafka:9092
-    schema.registry.url: http://kafkaschemaregistry:8080
+    schema.registry.url: http://kafka-schema-registry:8081

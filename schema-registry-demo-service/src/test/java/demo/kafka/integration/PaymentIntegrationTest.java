@@ -108,15 +108,15 @@ public class PaymentIntegrationTest {
     }
 
     /**
-     * Register the schema derived from the avro generated class.
+     * Register the schema derived from the avro generated class for the given topic.
      *
      * @param schemaId the schema id to use
-     * @param subject the subject (topic name) of the schema
+     * @param topic the topic name for the message schema to register
      * @param schema the schema JSON string
      */
-    private void registerSchema(int schemaId, String subject, String schema) throws Exception {
+    private void registerSchema(int schemaId, String topic, String schema) throws Exception {
         // Register the Avro schema.
-        stubFor(post(urlPathMatching("/subjects/"+subject+"-value"))
+        stubFor(post(urlPathMatching("/subjects/"+topic+"-value"))
                 .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("{\"id\":"+schemaId+"}")));
 
         // Get the registered schema.

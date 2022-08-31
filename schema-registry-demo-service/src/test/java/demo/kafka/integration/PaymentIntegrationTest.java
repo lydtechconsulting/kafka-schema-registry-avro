@@ -152,7 +152,7 @@ public class PaymentIntegrationTest {
      */
     @Test
     public void testSendPaymentViaKafka() throws Exception {
-        int totalMessages = 1;
+        int totalMessages = 10;
         for (int i=0; i<totalMessages; i++) {
             String paymentId = UUID.randomUUID().toString();
 

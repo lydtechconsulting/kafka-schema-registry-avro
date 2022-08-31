@@ -115,11 +115,16 @@ public class PaymentIntegrationTest {
      * @param schema the schema JSON string
      */
     private void registerSchema(int schemaId, String topic, String schema) throws Exception {
-        // Register the Avro schema.
+        // Stub for the POST of the subject, to return the associated schemaId.
+        // (The Avro schema, obtained by the serialiazer by reflection, will be in the body POSTed).
+        // This is used by the Producer when serializing.
+        // /subjects/send-payment-value?deleted=false
         stubFor(post(urlPathMatching("/subjects/"+topic+"-value"))
                 .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("{\"id\":"+schemaId+"}")));
 
-        // Get the registered schema.
+        // Stub for the GET registered schema call for the given schema Id, returning the schema.
+        // This is used by the Consumer when deserializing.
+        // /schemas/ids/1?fetchMaxId=false
         final SchemaString schemaString = new SchemaString(schema);
         stubFor(get(urlPathMatching("/schemas/ids/"+schemaId))
                 .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(schemaString.toJson())));
@@ -147,7 +152,7 @@ public class PaymentIntegrationTest {
      */
     @Test
     public void testSendPaymentViaKafka() throws Exception {
-        int totalMessages = 10;
+        int totalMessages = 1;
         for (int i=0; i<totalMessages; i++) {
             String paymentId = UUID.randomUUID().toString();
 

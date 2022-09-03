@@ -23,7 +23,7 @@ cd schema-registry-demo-service/
 java -jar target/schema-registry-demo-service-1.0.0.jar
 ```
 
-### View topics
+### List topics:
 
 Jump on to Kafka docker container:
 ```
@@ -33,6 +33,14 @@ docker exec -ti kafka bash
 List topics:
 ```
 kafka-topics --list --bootstrap-server localhost:9092
+```
+
+View schemas:
+```
+kafka-console-consumer \
+--topic _schemas \
+--bootstrap-server kafka:29092 \
+--from-beginning
 ```
 
 ### Register schemas:

@@ -1,4 +1,4 @@
-# Kafka Spring Boot Schema Registry With Avro Demo Project
+# Kafka Spring Boot Schema Registry & Avro Demo Project
 
 Spring Boot application demonstrating usage of the Kafka Schema Registry with Avro serialisation.
 

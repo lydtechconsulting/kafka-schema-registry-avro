@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import demo.kafka.event.PaymentSent;
 import demo.kafka.event.SendPayment;
@@ -16,6 +17,7 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -62,11 +64,13 @@ public class PaymentEndToEndComponentTest {
      */
     @Test
     public void testFlow() throws Exception {
-        int totalMessages = 100;
+        int totalMessages = 10000;
+        log.info("Sending send-payment events.");
         for (int i=0; i<totalMessages; i++) {
             String key = UUID.randomUUID().toString();
             String payload = UUID.randomUUID().toString();
             KafkaAvroClient.getInstance().sendMessage(SEND_PAYMENT_TOPIC, key, buildSendPayment(payload));
+            TimeUnit.MILLISECONDS.sleep(100);
         }
         List<ConsumerRecord<String, PaymentSent>> outboundEvents = KafkaAvroClient.getInstance().consumeAndAssert("testFlow", consumer, totalMessages, 3);
         outboundEvents.stream().forEach(outboundEvent -> {

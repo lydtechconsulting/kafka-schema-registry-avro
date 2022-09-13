@@ -162,20 +162,9 @@ Run tests leaving containers up:
 ```
 mvn test -Pcomponent -Dcontainers.stayup
 ```
+#### Kafka Confluent Control Center
 
-Manual clean up (if left containers up):
-```
-docker rm -f $(docker ps -aq)
-```
-
-Further docker clean up if network issues:
-```
-docker network prune
-```
-
-## Kafka Confluent Control Center
-
-To view the Control Center UI, obtain the mapped docker port via:
+To view the Control Center UI, leave the test containers up following a test run, and obtain the mapped docker port via:
 ```
 docker ps
 ```
@@ -188,4 +177,16 @@ For example, the mapped port in this case is `52853`:
 Use this to navigate to the Control Center:
 ```
 http://localhost:52853
+```
+
+#### Docker clean up
+
+Manual clean up (if left containers up):
+```
+docker rm -f $(docker ps -aq)
+```
+
+Further docker clean up if network issues:
+```
+docker network prune
 ```

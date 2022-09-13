@@ -62,7 +62,7 @@ public class PaymentEndToEndComponentTest {
      */
     @Test
     public void testFlow() throws Exception {
-        int totalMessages = 100;
+        int totalMessages = 1000;
         for (int i=0; i<totalMessages; i++) {
             String key = UUID.randomUUID().toString();
             String payload = UUID.randomUUID().toString();

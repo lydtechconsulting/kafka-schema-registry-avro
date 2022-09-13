@@ -116,7 +116,7 @@ public class PaymentIntegrationTest {
      */
     private void registerSchema(int schemaId, String topic, String schema) throws Exception {
         // Stub for the POST of the subject, to return the associated schemaId.
-        // (The Avro schema, obtained by the serialiazer by reflection, will be in the body POSTed).
+        // (The Avro schema, obtained by the serializer by reflection, will be in the body POSTed).
         // This is used by the Producer when serializing.
         // /subjects/send-payment-value?deleted=false
         stubFor(post(urlPathMatching("/subjects/"+topic+"-value"))

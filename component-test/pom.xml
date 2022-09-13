@@ -25,8 +25,7 @@
 		<dependency>
 			<groupId>dev.lydtech</groupId>
 			<artifactId>component-test-framework</artifactId>
-			<version>1.7.1</version>
-
+			<version>1.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -59,6 +58,10 @@
 								<kafka.schema.registry.confluent.image.tag>6.2.4</kafka.schema.registry.confluent.image.tag>
 								<kafka.schema.registry.port>8081</kafka.schema.registry.port>
 								<kafka.schema.registry.container.logging.enabled>false</kafka.schema.registry.container.logging.enabled>
+								<kafka.control.center.enabled>true</kafka.control.center.enabled>
+								<kafka.control.center.container.logging.enabled>false</kafka.control.center.container.logging.enabled>
+								<kafka.control.center.port>9021</kafka.control.center.port>
+								<kafka.control.center.confluent.image.tag>6.2.4</kafka.control.center.confluent.image.tag>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>

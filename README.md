@@ -172,3 +172,20 @@ Further docker clean up if network issues:
 ```
 docker network prune
 ```
+
+## Kafka Confluent Control Center
+
+To view the Control Center UI, obtain the mapped docker port via:
+```
+docker ps
+```
+
+For example, the mapped port in this case is `52853`:
+```
+47140a515c3c confluentinc/cp-enterprise-control-center:6.2.4  [...] 0.0.0.0:52853->9021/tcp ct-kafka-control-center
+```
+
+Use this to navigate to the Control Center:
+```
+http://localhost:52853
+```

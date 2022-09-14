@@ -11,7 +11,7 @@ mvn clean install
 
 ### Run docker containers
 
-From root dir run the following to start dockerised Kafka, Zookeeper, and Schema Registry:
+From root dir run the following to start dockerised Kafka, Zookeeper, Schema Registry, and Control Center:
 ```
 docker-compose up -d
 ```
@@ -21,26 +21,6 @@ docker-compose up -d
 cd schema-registry-demo-service/
 
 java -jar target/schema-registry-demo-service-1.0.0.jar
-```
-
-### List topics:
-
-Jump on to Kafka docker container:
-```
-docker exec -ti kafka bash
-```
-
-List topics:
-```
-kafka-topics --list --bootstrap-server localhost:9092
-```
-
-View schemas:
-```
-kafka-console-consumer \
---topic _schemas \
---bootstrap-server kafka:29092 \
---from-beginning
 ```
 
 ### Register schemas:
@@ -109,9 +89,40 @@ Output:
 {"payment_id":"0e8a9a5f-1d4f-46bc-be95-efc6af8fb308","amount":3.0,"currency":"USD","to_account":"toAcc","from_account":"fromAcc"}
 ```
 
+### Kafka Confluent Control Center
+
+Confluent Control Center is a UI over the Kafka cluster, providing configuration, data and information on the brokers, topics and messages.  It integrates with Schema Registry, enabling viewing of schemas.
+
+Navigate to the Control Center:
+```
+http://localhost:9021
+```
+
+Select 'Topics' / 'send-payment' / 'Schemas' to view the schema for this message.
+
+### List topics:
+
+Jump on to Kafka docker container:
+```
+docker exec -ti kafka bash
+```
+
+List topics:
+```
+kafka-topics --list --bootstrap-server localhost:9092
+```
+
+View schemas:
+```
+kafka-console-consumer \
+--topic _schemas \
+--bootstrap-server kafka:29092 \
+--from-beginning
+```
+
 ## Avro
 
-Generate the source code for the events using the Avro schema (optional - this happens as part of the `install`):
+Generate the source code for the events using the Avro schema: (optional - this happens as part of the `install`)
 ```
 mvn clean generate-sources
 ```

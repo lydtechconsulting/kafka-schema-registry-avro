@@ -50,7 +50,7 @@
 							</environmentVariables>
 							<systemPropertyVariables>
 								<service.name>schema-registry-demo-service</service.name>
-								<service.instance.count>1</service.instance.count>
+								<service.instance.count>2</service.instance.count>
 								<service.container.logging.enabled>false</service.container.logging.enabled>
 								<kafka.enabled>true</kafka.enabled>
 								<kafka.container.logging.enabled>false</kafka.container.logging.enabled>

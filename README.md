@@ -205,7 +205,7 @@ To view the Conduktor Platform Console UI, first enable this setting in the `pom
 <conduktor.enabled>true</conduktor.enabled>
 ```
 
-To view data flowing through the system, enable the `PaymentEndToEndComponentTest.testThrottledSend()` which is `@Disabled` by default.
+To view data flowing through the system, enable the `PaymentEndToEndComponentTest.testThrottledSend()` test which is `@Disabled` by default.
 
 Leave the test containers up following a test run, and navigate to the Console at:
 ```

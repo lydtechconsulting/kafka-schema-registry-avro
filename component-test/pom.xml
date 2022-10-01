@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>dev.lydtech</groupId>
 			<artifactId>component-test-framework</artifactId>
-			<version>1.8.0</version>
+			<version>1.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -53,15 +53,22 @@
 								<service.instance.count>2</service.instance.count>
 								<service.container.logging.enabled>false</service.container.logging.enabled>
 								<kafka.enabled>true</kafka.enabled>
+								<kafka.topics>send-payment,payment-sent</kafka.topics>
+								<kafka.topic.partition.count>5</kafka.topic.partition.count>
 								<kafka.container.logging.enabled>false</kafka.container.logging.enabled>
 								<kafka.schema.registry.enabled>true</kafka.schema.registry.enabled>
 								<kafka.schema.registry.confluent.image.tag>6.2.4</kafka.schema.registry.confluent.image.tag>
 								<kafka.schema.registry.port>8081</kafka.schema.registry.port>
 								<kafka.schema.registry.container.logging.enabled>false</kafka.schema.registry.container.logging.enabled>
-								<kafka.control.center.enabled>true</kafka.control.center.enabled>
+								<kafka.control.center.enabled>false</kafka.control.center.enabled>
 								<kafka.control.center.container.logging.enabled>false</kafka.control.center.container.logging.enabled>
 								<kafka.control.center.port>9021</kafka.control.center.port>
 								<kafka.control.center.confluent.image.tag>6.2.4</kafka.control.center.confluent.image.tag>
+								<conduktor.enabled>false</conduktor.enabled>
+								<conduktor.image.tag>1.0.2</conduktor.image.tag>
+								<conduktor.port>8088</conduktor.port>
+								<conduktor.license.key></conduktor.license.key>
+								<conduktor.container.logging.enabled>false</conduktor.container.logging.enabled>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>

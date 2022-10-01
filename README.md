@@ -173,9 +173,17 @@ Run tests leaving containers up:
 ```
 mvn test -Pcomponent -Dcontainers.stayup
 ```
+
 #### Kafka Confluent Control Center
 
-To view the Control Center UI, leave the test containers up following a test run, and obtain the mapped docker port via:
+To view the Control Center UI, first enable this setting in the `pom.xml`:
+```
+<kafka.control.center.enabled>true</kafka.control.center.enabled>
+```
+
+To view data flowing through the system, enable the `PaymentEndToEndComponentTest.testThrottledSend()` which is `@Disabled` by default.
+
+Leave the test containers up following a test run, and obtain the mapped docker port via:
 ```
 docker ps
 ```
@@ -188,6 +196,25 @@ For example, the mapped port in this case is `52853`:
 Use this to navigate to the Control Center:
 ```
 http://localhost:52853
+```
+
+### Conduktor Platform Console
+
+To view the Conduktor Platform Console UI, first enable this setting in the `pom.xml`:
+```
+<conduktor.enabled>true</conduktor.enabled>
+```
+
+To view data flowing through the system, enable the `PaymentEndToEndComponentTest.testThrottledSend()` which is `@Disabled` by default.
+
+Leave the test containers up following a test run, and navigate to the Console at:
+```
+http://localhost:8088
+```
+
+The port can be overridden if required in the `pom.xml`, as it must be available on the local machine:
+```
+<conduktor.port>1234</conduktor.port>
 ```
 
 #### Docker clean up

@@ -217,6 +217,12 @@ The port can be overridden if required in the `pom.xml`, as it must be available
 <conduktor.port>1234</conduktor.port>
 ```
 
+Log in with the following credentials:
+```
+username: admin@conduktor.io
+password: admin
+```
+
 #### Docker clean up
 
 Manual clean up (if left containers up):

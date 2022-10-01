@@ -198,7 +198,7 @@ Use this to navigate to the Control Center:
 http://localhost:52853
 ```
 
-### Conduktor Platform Console
+#### Conduktor Platform Console
 
 To view the Conduktor Platform Console UI, first enable this setting in the `pom.xml`:
 ```

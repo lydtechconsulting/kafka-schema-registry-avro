@@ -142,7 +142,7 @@ The tests first add stub mappings to the Schema Registry wiremock that satisfy t
 
 ### Component Tests
 
-The tests demonstrate sending multiple send-payment command events to the inbound Kafka topic which is consumed by the application.  Each event triggers sending a payment, with a resulting payment-sent event being emitted to the outbound topic, which the test consumer receives.
+The test demonstrates sending multiple send-payment command events to the inbound Kafka topic which is consumed by the application.  Each event triggers sending a payment, with a resulting payment-sent event being emitted to the outbound topic, which the test consumer receives.
 
 The service itself is dockerised, and a dockerised Kafka broker and a dockerised Kafka Schema Registry are started by the component test framework.
 
@@ -205,7 +205,7 @@ To view the Conduktor Platform Console UI, first enable this setting in the `pom
 <conduktor.enabled>true</conduktor.enabled>
 ```
 
-To view data flowing through the system, enable the `PaymentEndToEndComponentTest.testThrottledSend()` test which is `@Disabled` by default.
+To view data flowing through the system while the test runs, update the `PaymentEndToEndComponentTest.testFlow()` test to increase `totalMessages` (e.g. to 10,000), and `delayMs` to add a short delay between each send (e.g. to 15 milliseconds).
 
 Leave the test containers up following a test run, and navigate to the Console at:
 ```

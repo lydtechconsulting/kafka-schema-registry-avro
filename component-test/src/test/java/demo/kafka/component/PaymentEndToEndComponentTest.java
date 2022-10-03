@@ -17,7 +17,6 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -65,53 +64,18 @@ public class PaymentEndToEndComponentTest {
     @Test
     public void testFlow() throws Exception {
         int totalMessages = 1000;
-        sendEvents("testFlow", totalMessages);
-        assertEvents("testFlow", totalMessages);
-    }
+        int delayMs = 0;
 
-    /**
-     * Test used for demonstrating Conduktor Platform Console, as events are flowing through the system over a period of time.
-     *
-     * A large quantity of events are sent to the inbound topic, with a short delay between each.
-     *
-     * With `conduktor.enabled`, navigate to http://localhost:[conduktor.port]
-     *
-     * Test is @Disabled by default as long running.
-     */
-    @Disabled
-    @Test
-    public void testThrottledSend() throws Exception {
-        int totalMessages = 10000;
-        sendEvents("testThrottledSend", totalMessages, 15);
-        assertEvents("testThrottledSend", totalMessages);
-    }
-
-    /**
-     * Send events with no delay.
-     */
-    private void sendEvents(String testName, int totalMessages) throws Exception {
-        sendEvents(testName, totalMessages, 0);
-    }
-
-    /**
-     * Send events with a configurable delay between each.
-     *
-     * Logs every additional 100 events sent.
-     */
-    private void sendEvents(String testName, int totalMessages, int delay) throws Exception {
         for (int i = 1; i<= totalMessages; i++) {
             String key = UUID.randomUUID().toString();
             String payload = UUID.randomUUID().toString();
             KafkaAvroClient.getInstance().sendMessage(SEND_PAYMENT_TOPIC, key, buildSendPayment(payload));
             if(i % 100 == 0){
-                log.info("{}: total events sent: {}", testName, i);
+                log.info("Total events sent: {}", i);
             }
-            TimeUnit.MILLISECONDS.sleep(delay);
+            TimeUnit.MILLISECONDS.sleep(delayMs);
         }
-    }
-
-    private void assertEvents(String testName, int totalMessages) throws Exception {
-        List<ConsumerRecord<String, PaymentSent>> outboundEvents = KafkaAvroClient.getInstance().consumeAndAssert(testName, consumer, totalMessages, 3);
+        List<ConsumerRecord<String, PaymentSent>> outboundEvents = KafkaAvroClient.getInstance().consumeAndAssert("testFlow", consumer, totalMessages, 3);
         outboundEvents.stream().forEach(outboundEvent -> {
             assertThat(outboundEvent.value().getPaymentId(), notNullValue());
             assertThat(outboundEvent.value().getToAccount().toString(), equalTo("toAcc"));

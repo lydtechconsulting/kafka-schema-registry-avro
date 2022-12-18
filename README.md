@@ -2,6 +2,14 @@
 
 Spring Boot application demonstrating usage of the Kafka Schema Registry with Avro serialisation.
 
+This repo accompanies the following series of articles on Kafka Schema Registry with Avro serialisation:
+
+- [Kafka Schema Registry & Avro: Introduction](https://www.lydtechconsulting.com/blog-kafka-schema-registry-intro.html): provides an introduction to the schema registry and Avro, and details the serialization and deserialization flows.
+- [Kafka Schema Registry & Avro: Spring Boot Demo (1 of 2)](https://www.lydtechconsulting.com/blog-kafka-schema-registry-demo-part1.html): provides an overview of the companion Spring Boot application and steps to run the demo.
+- [Kafka Schema Registry & Avro: Spring Boot Demo (2 of 2)](https://www.lydtechconsulting.com/blog-kafka-schema-registry-demo-part2.html): details the Spring Boot application project structure, implementation and configuration which enables it to utilise the Schema Registry and Avro.
+- [Kafka Schema Registry & Avro: Integration Testing](https://www.lydtechconsulting.com/blog-kafka-schema-registry-integration-test.html): looks at integration testing the application using Spring Boot test, with the embedded Kafka broker and a wiremocked Schema Registry.
+- [Kafka Schema Registry & Avro: Component Testing](https://www.lydtechconsulting.com/blog-kafka-schema-registry-component-test.html): looks at component testing the application using Testcontainers and the component-test-framework to bring up the application, Kafka, and the Schema Registry in Docker containers.
+
 ## Build
 ```
 mvn clean install

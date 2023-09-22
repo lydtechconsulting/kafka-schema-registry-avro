@@ -15,6 +15,14 @@
 		<!-- Allows control of whether to leave TestContainers up after component test run -->
 		<containers.stayup>false</containers.stayup>
 	</properties>
+	
+	<repositories>
+		<repository>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven/</url>
+		</repository>
+	</repositories>
+	
 	<dependencies>
 		<dependency>
 			<groupId>demo.kafka</groupId>

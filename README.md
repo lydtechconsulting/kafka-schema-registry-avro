@@ -11,6 +11,8 @@ This repo accompanies the following series of articles on Kafka Schema Registry 
 - [Kafka Schema Registry & Avro: Component Testing](https://www.lydtechconsulting.com/blog-kafka-schema-registry-component-test.html): looks at component testing the application using Testcontainers and the component-test-framework to bring up the application, Kafka, and the Schema Registry in Docker containers.
 
 ## Build
+
+Using Java 11:
 ```
 mvn clean install
 ```
@@ -158,7 +160,7 @@ The tests first register the Avro schemas for the events with the Schema Registr
 
 For more on the component tests see: https://github.com/lydtechconsulting/component-test-framework
 
-Build Spring Boot application jar:
+Build Spring Boot application jar (using Java 11):
 ```
 mvn clean install
 ```

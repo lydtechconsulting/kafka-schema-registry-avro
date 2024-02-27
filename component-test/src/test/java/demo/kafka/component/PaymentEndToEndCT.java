@@ -27,7 +27,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 @Slf4j
 @ExtendWith(TestContainersSetupExtension.class)
-public class PaymentEndToEndComponentTest {
+public class PaymentEndToEndCT {
 
     private static final String GROUP_ID = "PaymentEndToEndComponentTest";
     private final static String SEND_PAYMENT_TOPIC = "send-payment";

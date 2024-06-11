@@ -21,7 +21,7 @@ public class PaymentConsumer {
     final PaymentService demoService;
 
     @KafkaListener(topics = "send-payment", groupId = "demo-consumer-group", containerFactory = "kafkaListenerContainerFactory")
-    public void listen(@Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key, @Payload final SendPayment command) {
+    public void listen(@Header(KafkaHeaders.RECEIVED_KEY) String key, @Payload final SendPayment command) {
         counter.getAndIncrement();
         log.debug("Received message [" +counter.get()+ "] - key: " + key);
         try {

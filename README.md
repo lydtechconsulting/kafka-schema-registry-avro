@@ -30,7 +30,7 @@ docker-compose up -d
 ```
 cd schema-registry-demo-service/
 
-java -jar target/schema-registry-demo-service-1.0.0.jar
+java -jar target/schema-registry-demo-service-2.0.0.jar
 ```
 
 ### Register schemas:
@@ -41,9 +41,22 @@ mvn schema-registry:register
 ```
 Output:
 ```
-[INFO] --- kafka-schema-registry-maven-plugin:5.5.5:register (default-cli) @ avro-schema ---
+[INFO] --- kafka-schema-registry-maven-plugin:7.5.3:register (default-cli) @ avro-schema ---
 [INFO] Registered subject(payment-sent-value) with id 1 version 1
 [INFO] Registered subject(send-payment-value) with id 2 version 1
+```
+
+Alternatively register the two schemas via `curl`:
+```
+curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+--data '{"schema": "{\"type\":\"record\",\"namespace\":\"demo.kafka.event\",\"name\":\"SendPayment\",\"fields\":[{\"name\":\"payment_id\",\"type\":\"string\"},{\"name\":\"amount\",\"type\":\"double\"},{\"name\":\"currency\",\"type\":\"string\"},{\"name\":\"to_account\",\"type\":\"string\"},{\"name\":\"from_account\",\"type\":\"string\"}]}","schemaType": "AVRO"}' \
+http://localhost:8081/subjects/send-payment-value/versions
+```
+
+```
+curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+--data '{"schema": "{\"type\":\"record\",\"namespace\":\"demo.kafka.event\",\"name\":\"PaymentSent\",\"fields\":[{\"name\":\"payment_id\",\"type\":\"string\"},{\"name\":\"amount\",\"type\":\"double\"},{\"name\":\"currency\",\"type\":\"string\"},{\"name\":\"to_account\",\"type\":\"string\"},{\"name\":\"from_account\",\"type\":\"string\"}]}","schemaType":"AVRO"}' \
+http://localhost:8081/subjects/payment-sent-value/versions
 ```
 
 ### Schema Registry API curl:
@@ -74,10 +87,10 @@ kafka-avro-console-producer \
 --topic send-payment \
 --broker-list kafka:29092 \
 --property schema.registry.url=http://localhost:8081 \
---property value.schema.id=2 \
+--property value.schema.id=1 \
 --property key.schema='{"type":"string"}' \
 --property "key.separator=:" \
---property parse.key=true \ 
+--property parse.key=true 
 ```
 Now enter the event (with key prefix):
 ```
@@ -200,7 +213,7 @@ docker ps
 
 For example, the mapped port in this case is `52853`:
 ```
-47140a515c3c confluentinc/cp-enterprise-control-center:6.2.4  [...] 0.0.0.0:52853->9021/tcp ct-kafka-control-center
+47140a515c3c confluentinc/cp-enterprise-control-center:7.5.3  [...] 0.0.0.0:52853->9021/tcp ct-kafka-control-center
 ```
 
 Use this to navigate to the Control Center:
@@ -240,7 +253,8 @@ Manual clean up (if left containers up):
 docker rm -f $(docker ps -aq)
 ```
 
-Further docker clean up if network issues:
+Further docker clean up if issues:
 ```
 docker network prune
+docker system prune
 ```

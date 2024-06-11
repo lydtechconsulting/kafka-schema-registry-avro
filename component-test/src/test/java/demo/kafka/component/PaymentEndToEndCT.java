@@ -11,7 +11,7 @@ import demo.kafka.event.PaymentSent;
 import demo.kafka.event.SendPayment;
 import dev.lydtech.component.framework.client.kafka.KafkaAvroClient;
 import dev.lydtech.component.framework.client.kafka.KafkaSchemaRegistryClient;
-import dev.lydtech.component.framework.extension.TestContainersSetupExtension;
+import dev.lydtech.component.framework.extension.ComponentTestExtension;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.junit.jupiter.api.AfterEach;
@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 @Slf4j
-@ExtendWith(TestContainersSetupExtension.class)
+@ExtendWith(ComponentTestExtension.class)
 public class PaymentEndToEndCT {
 
     private static final String GROUP_ID = "PaymentEndToEndComponentTest";

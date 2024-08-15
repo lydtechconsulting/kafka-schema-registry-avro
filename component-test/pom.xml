@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>dev.lydtech</groupId>
 			<artifactId>component-test-framework</artifactId>
-			<version>3.3.0</version>
+			<version>3.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -70,6 +70,7 @@
 								<service.instance.count>2</service.instance.count>
 								<service.container.logging.enabled>false</service.container.logging.enabled>
 								<kafka.enabled>true</kafka.enabled>
+								<kafka.native.enabled>false</kafka.native.enabled>
 								<kafka.topics>send-payment,payment-sent</kafka.topics>
 								<kafka.topic.partition.count>5</kafka.topic.partition.count>
 								<kafka.container.logging.enabled>false</kafka.container.logging.enabled>
@@ -84,7 +85,6 @@
 								<conduktor.enabled>false</conduktor.enabled>
 								<conduktor.image.tag>1.0.2</conduktor.image.tag>
 								<conduktor.port>8088</conduktor.port>
-								<conduktor.license.key></conduktor.license.key>
 								<conduktor.container.logging.enabled>false</conduktor.container.logging.enabled>
 							</systemPropertyVariables>
 						</configuration>

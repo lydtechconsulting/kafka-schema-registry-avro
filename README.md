@@ -171,6 +171,8 @@ The service itself is dockerised, and a dockerised Kafka broker and a dockerised
 
 The tests first register the Avro schemas for the events with the Schema Registry so that the Kafka Avro serialisers are able to perform their serialisation.
 
+To test the application running against the Apache Kafka native instance, set `kafka.enabled` to `false` and `kafka.native.enabled` to `true` in the `pom.xml`.  Change the `bootstrap-servers` to use `kafka:9093` in `application-component-test.yml`.
+
 For more on the component tests see: https://github.com/lydtechconsulting/component-test-framework
 
 Build Spring Boot application jar (using Java 11):
